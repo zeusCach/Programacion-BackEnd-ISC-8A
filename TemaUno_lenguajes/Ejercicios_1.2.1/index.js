@@ -1,19 +1,22 @@
 //Ejercicios 1.2.1: Sintaxis basica de Node.js
 //Alumno: Zeus Cach
 
+
+// EJERCICIO A: Comentarios en línea y multilínea
+
 /*
   Este es un comentario
   multilínea que puede
   ocupar varias líneas
 */
 
-//Ejercicio b: Diferentes tipos de datos y sus valores
+//EJERCICIO B: Diferentes tipos de datos y sus valores
 
 let texto = "Hola Mundo"; // String
 let numero = 42; // Number
 let decimal = 3.14; // Number (con decimales)
 let booleano = true; // Boolean
-let indefinido; // Undefined
+let indefinido = undefined; // Undefined
 let nulo = null; // Null
 let objeto = { nombre: "Juan", edad: 25 }; // Object
 let arreglo = [1, 2, 3, 4, 5]; // Array
@@ -28,7 +31,7 @@ console.log("Object:", objeto);
 console.log("Array:", arreglo);
 
 
-//Ejercicio c: Array con diferentes tipos de datos
+//EJERCICIO C: Array con diferentes tipos de datos
 
 let arrayMixto = [
   "JavaScript",           // String
@@ -41,18 +44,21 @@ let arrayMixto = [
 console.log("Array mixto:", arrayMixto);
 
 
-// Ejercicio d: Función polinómica de segundo grado(ax² + bx + c)
+// EJERCICIO D: Función polinómica
 
-function polinomioSegundoGrado(x, a, b, c) {
-  return a * Math.pow(x, 2) + b * x + c;
+function funcionPolinomica(x, y) {
+  let resultado = Math.pow(x, 2) + y;
+
+  console.log(`f(${x}, ${y}) = x² + y`);
+  console.log("Resultado:", resultado);
+
+  return resultado;
 }
 
-// Ejemplo: 2x² + 3x + 1 cuando x = 5
-let resultado = polinomioSegundoGrado(5, 2, 3, 1);
-console.log("Resultado del polinomio:", resultado); // 2(25) + 3(5) + 1 = 66
 
+funcionPolinomica(3, 4);
 
-//Ejercicio e: Función flecha que imprime un string
+//EJERCICIO E: Función flecha que imprime un string
 
 const imprimirString = (texto) => {
   // Convertir a mayúsculas
@@ -65,13 +71,13 @@ const imprimirString = (texto) => {
   console.log("Longitud:", texto.length);
 
   // Invertir el string
-  console.log("Invertido:", texto.split('').reverse().join(''));
+  console.log("Invertido:", texto.split().reverse().join(''));
 };
 
 imprimirString("Hola JavaScript");
 
 
-//Ejercicio f: Bucle que imprime números del 1 al 10 en orden descendente
+//EJERCICIO F: Bucle que imprime números del 1 al 10 en orden descendente
 
 function numerosDescendentes() {
   for (let i = 10; i >= 1; i--) {
@@ -82,7 +88,7 @@ function numerosDescendentes() {
 numerosDescendentes();
 
 
-//Ejercicio g: Objeto que representa una institución
+//EJERCICIO G: Objeto que representa una institución
 
 let miInstitucion = {
   nombre: "Universidad Nacional",
@@ -95,7 +101,7 @@ let miInstitucion = {
 
 console.log("Institución:", miInstitucion);
 
-// Ejercicio h: Agregar método al objeto anterior
+// EJERCICIO H: Agregar método al objeto anterior
 
 miInstitucion.describir = function () {
   return `${this.nombre} está ubicada en ${this.ubicacion},
@@ -106,10 +112,9 @@ miInstitucion.describir = function () {
 console.log(miInstitucion.describir());
 
 
-//Ejercicio i: Módulo con funciones matemáticas
+//EJERCICIO I: Módulo con funciones matemáticas
 
-Archivo: matematicas.js
-const matematicas = {
+export const matematicas = {
   suma: (a, b) => a + b,
 
   resta: (a, b) => a - b,
@@ -125,16 +130,8 @@ const matematicas = {
   raizCuadrada: (num) => Math.sqrt(num)
 };
 
-// Uso del módulo en otro archivo
-console.log("Suma:", matematicas.suma(10, 5));
-console.log("Resta:", matematicas.resta(10, 5));
-console.log("Multiplicación:", matematicas.multiplicacion(10, 5));
-console.log("División:", matematicas.division(10, 5));
-console.log("Potencia:", matematicas.potencia(2, 3));
-console.log("Raíz cuadrada:", matematicas.raizCuadrada(16));
 
-
-//Ejercicio j: Operación asincrónica con setTimeout y callback
+//EJERCICIO J: Operación asincrónica con setTimeout y callback
 
 function operacionAsincronica(mensaje, callback) {
   console.log("Iniciando operación asincrónica...");
@@ -154,7 +151,7 @@ function manejarResultado(resultado) {
 operacionAsincronica("Datos importantes", manejarResultado);
 
 
-// Ejercicio k: Conversión de cadena a número con manejo de errores
+// EJERCICIO K: Conversión de cadena a número con manejo de errores
 
 function convertirCadenaANumero(cadena) {
   try {
