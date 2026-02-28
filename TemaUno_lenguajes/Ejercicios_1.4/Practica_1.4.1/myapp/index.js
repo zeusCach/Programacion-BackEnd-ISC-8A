@@ -16,7 +16,7 @@ app.get('/about', (req, res) => {
 //Se cambia '*' por '/*splat' porque los comodines ya no pueden ser anónimos.
 // El asterisco ahora debe colgar de un nombre de parámetro
 app.use('/*splat', (req, res) => {
-    res.status(404).send('<h1>404 Not Found</h1>')
+    res.status(404).send('<h1>Not Found 404</h1>')
 });
 
 //listen que escucha el puerto al que se solcita:3000
