@@ -24,7 +24,7 @@ app.post("/submit", (req, res) => {
     res.send("Datos recibidos");
 });
 
-//ejecuta el servicio o servidor
+//ejecuta el servicio o servidor.
 app.listen(port, () => {
     console.log(`servidor ejecutandose en el puerto ${port}`);
 });
