@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TacosMx</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+    <h1>Tacoschidos 🌮</h1>
+
+    <form id="Form" class="buttons">
+        <button type="button" data-type="Puerco">🐷</button>
+        <button type="button" data-type="Res">🐮</button>
+        <button type="button" data-type="Pavo">🦃</button>
+        <button type="button" data-type="Pescado">🐟</button>
+    </form>
+
+    <div id="Container"></div>
+
+    <script>
+        document.querySelectorAll("#Form button").forEach(button => {
+            button.addEventListener("click", async (e) => {
+
+                const type = e.target.getAttribute("data-type").toLowerCase();
+                const response = await fetch(`/receta/${type}`);
+                const receta = await response.json();
+
+
+                const contenedor = document.getElementById("Container");
+
+                // Validacion separada del componente para mostrar informacion, validamos antes de rederizar datos
+                if (receta.error) {
+                    contenedor.innerHTML = "<h2>Receta no encontrada</h2>";
+                    return;
+                }
+
+                //ES6, ajustamos el codigo para mejor lectura aplicando destructuring
+                const { nombre, ingredientes } = receta;
+                const { acompañamientos, proteina, salsa } = ingredientes;
+
+                //debug console.log(receta)
+                //debug console.log(ingredientes)
+
+                contenedor.innerHTML = `
+                        <h2>${nombre}</h2> 
+
+                        <h3>Ingredientes:</h3>
+                        <ul id="ingredientesLista">
+
+                        <li>
+                            Carne de: ${proteina.nombre}, 
+                            Modo preparación: ${proteina.preparacion}
+                        </li>
+                        <li> 
+                            Salsa: ${salsa.nombre} (${salsa.picor})
+                        </li>
+                        ${acompañamientos.map(a => `
+                            <li> 
+                                Acompañamiento: ${a.cantidad} : ${a.nombre}
+                            </li>
+                        `).join("")}
+
+                        </ul>
+                    `
+
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Receta</title>
+    <style>
+        .card {
+            border: 2px solid #2ecc71;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            font-family: sans-serif;
+        }
+
+        .precio {
+            color: #e67e22;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="taco-card" class="card">
+        <h1 id="taco-nombre">Cargando...</h1>
+        <p class="precio">Precio: <span id="taco-precio">0</span></p>
+        <h3>Acompañamientos:</h3>
+        <ul id="lista-acompañamientos">
+        </ul>
+    </div>
+
+    <script>
+        const taco = {
+            "id": "0001",
+            "tipo": "taco",
+            "nombre": "Taco lechon",
+            "precio": 20.00,
+            "ingredientes": {
+                "proteina": {
+                    "nombre": "Puerco",
+                    "preparacion": "Horneado"
+                },
+                "salsa": {
+                    "nombre": "Tomate verde",
+                    "picor": "Medio"
+                },
+                "acompañamientos": [
+                    {
+                        "nombre": "Cebolla",
+                        "cantidad": "1 cucharada",
+                        "ingredientes": ["Cebolla blanca", "Cilantro", "Naranja", "Sal"]
+                    },
+                    {
+                        "nombre": "Guacamole",
+                        "cantidad": "2 cucharadas",
+                        "ingredientes": ["Aguacate", "Jugo de limon", "Sal", "Cebolla", "Cilantro"]
+                    }
+                ]
+            }
+        };
+
+        // TU CÓDIGO AQUÍ:
+
+        //destructuramos los elementos de nuestro objeto json para un mejor manejo 
+        const { nombre, precio, ingredientes: { acompañamientos } } = taco;
+
+        const title = document.getElementById('taco-nombre');
+        const price = document.getElementById('taco-precio');
+        const accompaniment = document.getElementById('lista-acompañamientos');
+
+        // 1. Insertar nombre en el h1
+        title.innerText = nombre;
+
+        // 2. Insertar precio con formato moneda
+        price.innerText = `$ ${precio}`;
+
+        // 3. Recorrer acompañamientos y crear <li> para cada uno
+        accompaniment.innerHTML = acompañamientos.map(({ nombre, cantidad, ingredientes }) => (
+            `
+              <li>
+                ${nombre} - ${cantidad}
+              </li>
+              <ul> 
+                 ${ingredientes.map(ing => `<li>${ing}</li>`).join('')}
+              </ul>
+            `
+        )).join('');
+    </script>
+</body>
+
+</html>
