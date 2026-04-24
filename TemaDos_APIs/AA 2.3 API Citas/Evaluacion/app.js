@@ -26,6 +26,8 @@ app.use(express.static("public"));
 //endpoint principal
 app.get("/", getDataWeather, async (req, res) => {
   try {
+
+    //get con axios para recuperar datos de la ciudad buscada
     const geo = await axios.get(city_url, {
       params: {
         q: res.locals.city?.trim(),
@@ -34,15 +36,17 @@ app.get("/", getDataWeather, async (req, res) => {
       },
     });
 
+    //get con axios para recuperar informacion del clima de la ciudad buscada
     const weatherInfo = await axios.get(url_weather, {
       params: {
-        lat: geo.data[0].lat,
-        lon: geo.data[0].lon,
-        units: "metric",
+        lat: geo.data[0].lat,  //pasamos latitud de ciudad buscada
+        lon: geo.data[0].lon,  //pasamos longitud de ciudad busca
+        units: "metric", 
         appid: API_KEY,
       },
     });
 
+    //paraseamos el date(fecha) actual del clima
     const date = new Date(weatherInfo.data.dt * 1000).toLocaleDateString(
       "es-MX",
       {
@@ -53,6 +57,7 @@ app.get("/", getDataWeather, async (req, res) => {
       },
     );
 
+    //Rederizamos informacion de la api al archivo index del ejs 
     res.render("index", {
       city: weatherInfo.data.name,
       country: weatherInfo.data.sys.country,
@@ -60,8 +65,8 @@ app.get("/", getDataWeather, async (req, res) => {
       temp: Math.round(weatherInfo.data.main.temp),
       feelsLike: Math.round(weatherInfo.data.main.feels_like),
       humidity: weatherInfo.data.main.humidity,
-      wind: Math.round(weatherInfo.data.wind.speed * 3.6), // m/s → km/h
-      visibility: weatherInfo.data.visibility / 1000, // metros → km
+      wind: Math.round(weatherInfo.data.wind.speed * 3.6), // conversion m/s → km/h
+      visibility: weatherInfo.data.visibility / 1000, //conversion metros → km
       description: weatherInfo.data.weather[0].description,
       icon: `https://openweathermap.org/img/wn/${weatherInfo.data.weather[0].icon}@2x.png`,
     });
@@ -73,6 +78,7 @@ app.get("/", getDataWeather, async (req, res) => {
       console.log("Error:", error.message);
     }
 
+    //Si existe un error, Renderizamos con parametros por default segun nuestro middlewere
     res.render("index");
   }
 });

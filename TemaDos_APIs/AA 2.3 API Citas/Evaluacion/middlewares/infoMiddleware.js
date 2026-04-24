@@ -1,3 +1,4 @@
+//Middleware que controla los datos por default que puede o no renderizar el back al archivo ejs
 export function getDataWeather(req, res, next) {
      res.locals.city = req.query.city || '';
      res.locals.country = '';
